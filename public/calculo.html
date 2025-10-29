@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calcular Muros · Formaletas</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Formaletas</div>
+    <nav class="nav">
+      <a href="index.html">Salir</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h2>Cálculo avanzado de formaletas</h2>
+    <div class="card">
+      <form id="formCalc" class="form grid2">
+        <input id="width" type="number" min="0" step="0.01" placeholder="Ancho del muro (m)" required />
+        <input id="height" type="number" min="0" step="0.01" placeholder="Alto del muro (m)" required />
+        <div class="span2">
+          <h4>Huecos (puertas/ventanas)</h4>
+          <div id="holes" class="holes"></div>
+          <div class="holes-actions">
+            <input id="hW" type="number" min="0" step="0.01" placeholder="Ancho hueco (m)" />
+            <input id="hH" type="number" min="0" step="0.01" placeholder="Alto hueco (m)" />
+            <button id="addHole" type="button" class="btn">Agregar hueco</button>
+          </div>
+        </div>
+        <button class="btn primary span2" type="submit">Calcular</button>
+      </form>
+      <div id="result" class="result"></div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <section id="history"></section>
+<script>
+(async ()=>{
+  const userId = localStorage.getItem("userId");
+  if(!userId) return;
+  const r = await fetch(`/api/calcs/${userId}`);
+  const j = await r.json();
+  if(!j.ok) return;
+  const html = j.items.map(it=>`
+    <div class="history-item">
+      <b>${it.width}×${it.height} m</b> · neta: ${it.netArea} m² · paneles: ${it.totalPanels}
+      <small> · ${new Date(it.created_at).toLocaleString()}</small>
+    </div>`).join("");
+  document.getElementById("history").innerHTML = html || "<p>Sin cálculos aún.</p>";
+})();
+</script>
+
+</body>
+</html>

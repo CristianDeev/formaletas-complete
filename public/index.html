@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formaletas · Acceso</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <main class="auth-wrap">
+    <div class="auth-card">
+      <div class="tabs">
+        <button id="tabLogin" class="tab active">Iniciar sesión</button>
+        <button id="tabRegister" class="tab">Crear cuenta</button>
+      </div>
+
+      <form id="formLogin" class="auth-form">
+        <input id="loginEmail" type="email" placeholder="Correo" required />
+        <div class="pwd-row">
+          <input id="loginPass" type="password" placeholder="Contraseña" required />
+          <button type="button" class="eye" data-eye="loginPass" aria-label="Ver/ocultar">👁️</button>
+        </div>
+        <label class="row">
+          <input id="remember" type="checkbox" />
+          <span>Recuérdame</span>
+        </label>
+        <button class="btn primary" type="submit">Entrar</button>
+        <p id="loginMsg" class="msg"></p>
+      </form>
+
+      <form id="formRegister" class="auth-form hidden">
+        <input id="regEmail" type="email" placeholder="Correo" required />
+        <div class="pwd-row">
+          <input id="regPass" type="password" placeholder="Contraseña (mín. 8)" minlength="8" required />
+          <button type="button" class="eye" data-eye="regPass" aria-label="Ver/ocultar">👁️</button>
+        </div>
+        <button class="btn" type="submit">Crear cuenta</button>
+        <p id="regMsg" class="msg"></p>
+      </form>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
